@@ -105,14 +105,16 @@ export async function deleteCourse(req: Request, res: Response): Promise<any> {
 export async function createCourse(req: Request, res: Response): Promise<any> {
   const { title, categories, price, rating, cover_img } = req.body;
   try {
-    await courseModel.create({
+    const courseCreated = await courseModel.create({
       title,
       categories,
       price,
       rating,
       cover_image: cover_img,
     });
-    return res.status(200).json({ message: "Create course successfully" });
+    return res
+      .status(200)
+      .json({ id: courseCreated._id, message: "Create course successfully" });
   } catch (error) {
     return res.status(400).json({ message: "Create course failed" });
   }
