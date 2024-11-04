@@ -34,6 +34,7 @@ export async function getCourses(req: Request, res: Response): Promise<any> {
   const skip = (parseInt(page as string, 10) - 1) * itemsPerPage;
 
   const totalCourses = await courseModel.countDocuments();
+  console.log("🚀 ~ getCourses ~ totalCourses:", totalCourses)
 
   if (search) {
     const regex = new RegExp(req.query.search as string, "i"); // Case-insensitive search
@@ -45,6 +46,7 @@ export async function getCourses(req: Request, res: Response): Promise<any> {
     };
   }
   const courses = await courseModel.find();
+  console.log("🚀 ~ getCourses ~ courses:", courses)
 
   if (courses.length) {
     if (isTopRated) {
